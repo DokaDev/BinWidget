@@ -1,0 +1,22 @@
+﻿<Window x:Class="WidgetApp.OptionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WidgetApp"
+        mc:Ignorable="d"
+        Title="Configure" Height="174" Width="568" ResizeMode="NoResize">
+    <Grid>
+        <Slider HorizontalAlignment="Left" Margin="72,14,0,0" VerticalAlignment="Top" Width="174"/>
+        <CheckBox Content="Register to Startup" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Lock Position" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Display Garbage Information(Number of Files and Size)" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Play Sound" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top"/>
+        <Label Content="Icon Size" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Slider HorizontalAlignment="Left" Margin="351,14,0,0" VerticalAlignment="Top" Width="174"/>
+        <Label Content="Transparency" HorizontalAlignment="Left" Margin="267,10,0,0" VerticalAlignment="Top"/>
+        <Button Content="Empty Icon" HorizontalAlignment="Left" Margin="438,62,0,0" VerticalAlignment="Top" Height="27" Width="110"/>
+        <Button Content="Full Icon" HorizontalAlignment="Left" Margin="438,102,0,0" VerticalAlignment="Top" Height="27" Width="110"/>
+
+    </Grid>
+</Window>

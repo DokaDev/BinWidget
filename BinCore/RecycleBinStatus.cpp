@@ -58,3 +58,12 @@ void NotifyRecycleBinStatusChanged(bool isEmpty) {
 		s_statusChangedCallback(isEmpty);
 	}
 }
+
+/// <summary>
+/// Empty Recycle Bin
+/// </summary>
+/// <returns></returns>
+extern "C" __declspec(dllexport) bool EmptyRecycleBin() {
+	HRESULT hr = SHEmptyRecycleBinW(NULL, NULL, SHERB_NOCONFIRMATION | SHERB_NOPROGRESSUI | SHERB_NOSOUND);
+	return SUCCEEDED(hr);
+}

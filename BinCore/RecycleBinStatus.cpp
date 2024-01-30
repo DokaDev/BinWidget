@@ -2,6 +2,10 @@
 #include <Windows.h>
 #include <shellapi.h>
 
+/// <summary>
+/// 
+/// </summary>
+/// <returns>IsRecycleBinEmpty :: bool</returns>
 extern "C" __declspec(dllexport) bool IsRecycleBinEmpty() {
 	SHQUERYRBINFO recycleBinInfo;
 	recycleBinInfo.cbSize = sizeof(SHQUERYRBINFO);
@@ -18,6 +22,11 @@ extern "C" __declspec(dllexport) bool IsRecycleBinEmpty() {
 	return false;
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="itemCount"></param>
+/// <param name="totalSize"></param>
 extern "C" __declspec(dllexport) void GetRecycleBinStatus(long long* itemCount, long long* totalSize) {
 	SHQUERYRBINFO recycleBinInfo;
 	recycleBinInfo.cbSize = sizeof(SHQUERYRBINFO);
@@ -30,5 +39,22 @@ extern "C" __declspec(dllexport) void GetRecycleBinStatus(long long* itemCount, 
 	else {
 		*itemCount = 0;
 		*totalSize = 0;
+	}
+}
+
+/// <summary>
+/// StatusChanged Event
+/// </summary>
+typedef void(__stdcall* RecycleBinStatusChangedCallback)(bool isEmpty);
+static RecycleBinStatusChangedCallback s_statusChangedCallback = nullptr;
+
+extern "C" __declspec(dllexport) void SetStatusChangedCallback(RecycleBinStatusChangedCallback callback) {
+	s_statusChangedCallback = callback;
+}
+
+// Trigger Event at Status of Recycle Bin changed
+void NotifyRecycleBinStatusChanged(bool isEmpty) {
+	if (s_statusChangedCallback) {
+		s_statusChangedCallback(isEmpty);
 	}
 }

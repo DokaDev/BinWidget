@@ -30,6 +30,15 @@ BinStatus GetBinStatus() {
 }
 
 void Run() {
+    bool isBinEmpty = IsBinEmpty();
+    Console.WriteLine($"Is bin empty? {isBinEmpty}");
+    if(!isBinEmpty) {
+        BinStatus binStatus = GetBinStatus();
+        Console.WriteLine($"Bin status: {binStatus.ItemCount} items, {binStatus.TotalSize} bytes");
+
+        ClearBin();
+        Console.WriteLine("Bin cleared");
+    }
 
 }
 

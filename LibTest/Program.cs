@@ -1,2 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using System.Runtime.InteropServices;
+
+[DllImport("BinCore.dll")]
+static extern bool IsRecycleBinEmpty();
+
+bool IsEmpty = IsRecycleBinEmpty();
+Console.WriteLine($"Is the recycle bin empty? {IsEmpty}");

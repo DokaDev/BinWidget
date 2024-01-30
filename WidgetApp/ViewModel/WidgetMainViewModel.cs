@@ -1,11 +1,15 @@
-﻿using System.ComponentModel;
+﻿using GalaSoft.MvvmLight;
+using System.Runtime.InteropServices;
 using System.Windows.Media.Imaging;
-using System.Drawing;
-using System.Windows.Interop;
-using GalaSoft.MvvmLight;
 
 namespace WidgetApp.ViewModel {
     public class WidgetMainViewModel : ViewModelBase {
+        [DllImport("BinCore.dll")]
+        private static extern bool IsRecycleBinEmpty();
+
+        [DllImport("BinCore.dll")]
+        private static extern void GetRecycleBinStatus(ref Int64 itemCount, ref Int64 totalSize);
+
         private BitmapSource _imageSource;
         public BitmapSource ImageSource {
             get => _imageSource;
@@ -31,10 +35,9 @@ namespace WidgetApp.ViewModel {
             WindowHeight = _imageSource.PixelHeight;
         }
 
-        public WidgetMainViewModel() {
-            Bitmap bitmap = new("full4.png");
-            ImageSource = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), nint.Zero, System.Windows.Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            //ImageSource = dest;
-        }
+        //public WidgetMainViewModel() {
+        //    Bitmap bitmap = new("empty4.png");
+        //    ImageSource = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+        //}
     }
 }

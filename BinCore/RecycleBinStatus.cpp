@@ -17,3 +17,18 @@ extern "C" __declspec(dllexport) bool IsRecycleBinEmpty() {
 	// error :: return false
 	return false;
 }
+
+extern "C" __declspec(dllexport) void GetRecycleBinStatus(long long* itemCount, long long* totalSize) {
+	SHQUERYRBINFO recycleBinInfo;
+	recycleBinInfo.cbSize = sizeof(SHQUERYRBINFO);
+
+	HRESULT hr = SHQueryRecycleBinW(NULL, &recycleBinInfo);
+	if (SUCCEEDED(hr)) {
+		*itemCount = recycleBinInfo.i64NumItems;
+		*totalSize = recycleBinInfo.i64Size / 1024;
+	}
+	else {
+		*itemCount = 0;
+		*totalSize = 0;
+	}
+}

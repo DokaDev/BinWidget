@@ -1,44 +1,40 @@
 ﻿using System.ComponentModel;
 using System.Windows.Media.Imaging;
+using System.Drawing;
+using System.Windows.Interop;
+using GalaSoft.MvvmLight;
 
 namespace WidgetApp.ViewModel {
-    public class WidgetMainViewModel : INotifyPropertyChanged {
+    public class WidgetMainViewModel : ViewModelBase {
         private BitmapSource _imageSource;
         public BitmapSource ImageSource {
-            get { return _imageSource; }
+            get => _imageSource;
             set {
-                _imageSource = value;
-                OnPropertyChanged(nameof(ImageSource));
+                Set(ref _imageSource, value);
+                UpdateWindowSize();
             }
         }
 
         private double _windowWidth;
         private double _windowHeight;
         public double WindowWidth {
-            get { return _windowWidth; }
-            set {
-                _windowWidth = value;
-                OnPropertyChanged(nameof(WindowWidth));
-                UpdateWindowSize();
-            }
+            get => _windowWidth;
+            set => Set(ref _windowWidth, value);
         }
         public double WindowHeight {
-            get { return _windowHeight; }
-            set {
-                _windowHeight = value;
-                OnPropertyChanged(nameof(WindowHeight));
-                UpdateWindowSize();
-            }
-        }
-        
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName) {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get => _windowHeight;
+            set => Set(ref _windowHeight, value);
         }
 
         private void UpdateWindowSize() {
             WindowWidth = _imageSource.PixelWidth;
             WindowHeight = _imageSource.PixelHeight;
+        }
+
+        public WidgetMainViewModel() {
+            Bitmap bitmap = new("full4.png");
+            ImageSource = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), nint.Zero, System.Windows.Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            //ImageSource = dest;
         }
     }
 }
